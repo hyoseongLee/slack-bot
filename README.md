@@ -49,17 +49,38 @@ Slack API는 크게 다음과 같은 방식으로 작동합니다:
 - Slash Command는 앱이 속한 계정에서도 추가해야 합니다. 알려주시면 계속해서 추가하겠습니다.
   - 필요한 내용
     -  명령어 - `/command`
-    -  명령어에 대한 짧은 설명 - `Lauches the Rocket!`
+    -  명령어에 대한 짧은 설명 - `Launches the Rocket!`
     -  사용법에 대한 힌트입니다 - `[which rocket to launch]`
    - Slack에서 표기되는 방식
      - `/command [which rocket to launch] Launches the Rocket!`
-- ex) 
 - 예: `/remind` 명령어를 처리하는 코드:
   ```javascript
-  app.command('/remind', async ({ command, ack, say }) => {
-    await ack(); // Slack에 명령어 수신 확인
-    const result = await service.createReminder(command.text, command.user_id);
-    await say(result); // 사용자에게 응답 메시지 전송
+  app.command('/reminder', async ({ command, ack, say }) => {
+    await ack();
+    const reminderId = Date.now(); // 고유 ID 생성
+    const result = await service.createReminder(command.text, command.user_id, reminderId);
+
+    // Block 메시지 전송 (버튼 포함)
+    await say({
+      blocks: [
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: `리마인더가 생성되었습니다: *${command.text}*\n아래 버튼을 눌러 완료하세요.`
+          },
+          accessory: {
+            type: 'button',
+            text: {
+              type: 'plain_text',
+              text: '완료하기'
+            },
+            action_id: 'remind_complete',
+            value: reminderId.toString()
+          }
+        }
+      ]
+    });
   });
   ```
 
@@ -70,10 +91,11 @@ Slack API는 크게 다음과 같은 방식으로 작동합니다:
  - 예: "완료하기" 버튼 클릭 이벤트를 처리하는 코드:
    ```javascript
    app.action('remind_complete', async ({ body, ack, say }) => {
-     await ack(); // Slack에 액션 수신 확인
-     const result = await service.completeReminder(body.actions[0].value);
-     await say(result); // 완료 메시지 전송
-   });
+    await ack(); // Slack에 이벤트 수신 확인
+    const reminderId = body.actions[0].value; // 버튼에서 전달된 리마인더 ID 가져오기
+    const result = await service.completeReminder(reminderId);
+    await say(result); // 완료 메시지 전송
+  });
    ```
 
 #### (3) Block Kit (블록 메시지)
@@ -103,7 +125,7 @@ Slack API는 크게 다음과 같은 방식으로 작동합니다:
   }
   ```
 - [https://app.slack.com/block-kit-builder/](https://app.slack.com/block-kit-builder/)
-- 위 링크를 통해 UI를 구성해서 복사해올 수도 있습니다.
+- 위 링크를 통해 UI를 구성해서 복사해서 사용할 수도 있습니다.
 
 ## 3. 실행 방법
 ```
