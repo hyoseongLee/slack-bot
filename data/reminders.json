@@ -5,5 +5,12 @@
     "userId": "U08N4UCPSAE",
     "createdAt": "2025-04-14T15:12:59.339Z",
     "isCompleted": false
+  },
+  {
+    "id": 1744649211546,
+    "text": "테스트2",
+    "userId": "U08N4UCPSAE",
+    "createdAt": "2025-04-14T16:46:51.546Z",
+    "isCompleted": true
   }
 ]
