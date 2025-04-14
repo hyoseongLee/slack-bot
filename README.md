@@ -95,7 +95,7 @@ Slack API는 크게 다음과 같은 방식으로 작동합니다:
     const reminderId = body.actions[0].value; // 버튼에서 전달된 리마인더 ID 가져오기
     const result = await service.completeReminder(reminderId);
     await say(result); // 완료 메시지 전송
-  });
+    });
 
 #### (3) Block Kit (블록 메시지)
 - UI 요소(버튼, 텍스트 등)를 포함한 메시지를 생성할 수 있습니다.
