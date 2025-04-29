@@ -1,4 +1,3 @@
-const service = require('./service');
 const {chooseAlgorithm} = require("./service");
 
 function algoBot(app) {
@@ -26,7 +25,6 @@ function algoBot(app) {
                 text: "📚 목록 확인하기"
               },
               action_id: 'sample-code-list',
-              value: dataStructure
             }
           ]
         }

@@ -9,6 +9,7 @@ function init(app) {
   handlers.selectDifficulty(app);
   handlers.selectSolvedCount(app);
   handlers.refreshRecommendation(app);
+  handlers.sayAlgorithm(app);
 }
 
 module.exports = { init };

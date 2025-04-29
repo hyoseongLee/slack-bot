@@ -1,10 +1,67 @@
-const {chooseProblem} = require("./service");
+const {chooseProblem, chooseAlgorithm} = require("./service");
 
 function sampleCode(app) {
   app.action('sample-code-list', async ({ body, ack, say }) => {
-    await ack(); // Slack에 이벤트 수신 확인
-    const result = ["queue", "heap", "stack", "sort", "DFS", "BFS"]
-    await say(result.join(", "));
+    await ack();
+    const result = ["Queue", "Stack", "DFS", "BFS", "LinkedList" ,"BinarySearchTree", "Heap"];
+
+    const blocks = [{
+      type: 'actions',
+      elements: []
+    }];
+
+    result.forEach(item => {
+      blocks[0].elements.push({
+        type: 'button',
+        text: {
+          type: 'plain_text',
+          text: item,
+          emoji: true,
+        },
+        action_id: `say-algorithm-${item.toLowerCase()}`, // <-- 버튼별로 고유 action_id
+        value: item.toLowerCase()
+      });
+    });
+
+
+    await say({
+      text: "자료구조를 선택해주세요.", // [필수] 최상단 text 추가
+      blocks,
+    });
+  });
+}
+
+function sayAlgorithm(app) {
+  app.action(/say-algorithm-.*/, async ({ body, ack, say }) => {
+    await ack();
+    const actionId = body.actions[0].action_id;
+    const selectedDataStructure = actionId.replace('say-algorithm-', '');
+    console.log('SELECTED!',selectedDataStructure)
+    const algorithmMessage = chooseAlgorithm(selectedDataStructure);
+    await say({
+      blocks: [
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: algorithmMessage
+          }
+        },
+        {
+          type: 'actions',
+          elements: [
+            {
+              type: 'button',
+              text: {
+                type: 'plain_text',
+                text: "📚 목록 확인하기"
+              },
+              action_id: 'sample-code-list',
+            }
+          ]
+        }
+      ]
+    });
   });
 }
 
@@ -183,5 +240,6 @@ module.exports = {
   selectAccuracy,
   selectSolvedCount,
   checkSelected,
-  refreshRecommendation
+  refreshRecommendation,
+  sayAlgorithm,
 };
