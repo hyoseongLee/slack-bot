@@ -39,6 +39,7 @@ function sayAlgorithm(app) {
     console.log('SELECTED!',selectedDataStructure)
     const algorithmMessage = chooseAlgorithm(selectedDataStructure);
     await say({
+      text: "algorithmMessage",
       blocks: [
         {
           type: 'section',
@@ -235,11 +236,11 @@ function refreshRecommendation(app) {
 }
 
 module.exports = {
-  sampleCode,
   selectDifficulty,
   selectAccuracy,
   selectSolvedCount,
   checkSelected,
   refreshRecommendation,
   sayAlgorithm,
+  sampleCode,
 };

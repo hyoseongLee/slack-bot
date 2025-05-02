@@ -1,36 +1,22 @@
-const {chooseAlgorithm} = require("./service");
-
 function algoBot(app) {
-  app.command('/sample-code', async ({ command, ack, say }) => {
-    await ack();
-    const dataStructure = command.text.trim(); // example 인 경우 분기쳐서 결과 리턴
-    const example = chooseAlgorithm(dataStructure);
-    await say({
-      text: "자료구조 예시 코드",
-      blocks: [
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: example
-          }
-        },
-        {
-          type: 'actions',
-          elements: [
-            {
-              type: 'button',
-              text: {
-                type: 'plain_text',
-                text: "📚 목록 확인하기"
-              },
-              action_id: 'sample-code-list',
-            }
-          ]
-        }
-      ]
-    })
-  })
+  const result = ["Queue", "Stack", "DFS", "BFS", "LinkedList" ,"BinarySearchTree", "Heap"];
+  const exampleBlocks = [{
+    type: 'actions',
+    elements: []
+  }];
+  result.forEach(item => {
+    exampleBlocks[0].elements.push({
+      type: 'button',
+      text: {
+        type: 'plain_text',
+        text: item,
+        emoji: true,
+      },
+      action_id: `say-algorithm-${item.toLowerCase()}`, // <-- 버튼별로 고유 action_id
+      value: item.toLowerCase()
+    });
+  });
+
   app.command('/algobot', async ({command, ack, say}) => {
     await ack();
     const order = command.text.trim().toLowerCase();
@@ -119,8 +105,13 @@ function algoBot(app) {
           }
         ]
       })
+    } else if (order === 'example') {
+      await say({
+        text: "자료구조를 선택해주세요.", // [필수] 최상단 text 추가
+        blocks: exampleBlocks,
+      });
     } else {
-      await say("준비중입니다.")
+      await say("문제 추천은 recommend, 예시 코드 추천은 example 명령어를 입력해주세요.")
     }
   })
 }
