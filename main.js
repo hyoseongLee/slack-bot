@@ -1,5 +1,7 @@
 require("dotenv").config();
 const { App } = require("@slack/bolt");
+
+const algoBotFeature = require('./features/algoBot'); // 
 const {
   studyService,
   submitAnswerService,
@@ -13,8 +15,11 @@ const app = new App({
   port: process.env.PORT || 3000,
 });
 
-app.command("/study", studyService);
+// Algobot 알고리즘 문제 추천 기능
+algoBotFeature.init(app);
 
+// 면접 예상 질문 및 답변 기능
+app.command("/study", studyService);
 app.action("submit_answer_button", submitAnswerService);
 
 (async () => {
