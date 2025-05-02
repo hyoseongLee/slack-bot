@@ -25,7 +25,8 @@ const callOpenAi = async (answer) => {
     return response.choices[0].message.content;
   } catch (error) {
     console.error("Error calling OpenAI API:", error);
-    return null;
+    return `에러가 발생했습니다: ${error}
+    올바른 OPENAI API KEY를 입력하고 잔액을 확인해주세요`;
   }
 };
 
