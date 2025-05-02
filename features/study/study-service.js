@@ -124,49 +124,7 @@ const submitAnswerService = async ({ body, ack, say, client }) => {
   }
 };
 
-// 폐기
-const questionBlock = (category, question) => {
-  return [
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*질문*\n\n카테고리: ${category}\n${question}`,
-      },
-    },
-  ];
-};
-
-const createQuestionService = async ({ ack, body, client }) => {
-  await ack();
-
-  const { category, question } = getRandomQuestion();
-  questionStore.set(category, question);
-
-  await client.chat.postMessage({
-    channel: body.user.id,
-    text: `질문이 생성되었습니다!`,
-    blocks: questionBlock(category, question),
-  });
-};
-
-const evaluateQuestionService = async ({ ack, say }) => {
-  await ack();
-
-  const { category, question } = questionStore.get();
-  if (!category || !question) {
-    await say(
-      '질문이 생성되지 않았습니다. "/질문생성" 명령어로 질문을 생성해주세요.'
-    );
-    return;
-  }
-
-  await say(`답변 중...`);
-};
-
 module.exports = {
   studyService,
   submitAnswerService,
-  createQuestionService,
-  evaluateQuestionService,
 };
