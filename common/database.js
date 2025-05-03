@@ -50,9 +50,16 @@ function updateItem(fileName, id, updatedItem) {
   writeJson(fileName, updatedData);
 }
 
+function deleteItem(fileName, id) {
+  const data = readJson(fileName);
+  const updatedData = data.filter(item => item.id !== id);
+  writeJson(fileName, updatedData);
+}
+
 module.exports = {
   readJson,
   writeJson,
   addItem,
   updateItem,
+  deleteItem
 };

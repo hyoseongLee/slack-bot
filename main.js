@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { App } = require('@slack/bolt');
 const reminderFeature = require('./features/reminder');
+const scheduleFeature = require('./features/schedule');
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
@@ -11,6 +12,7 @@ const app = new App({
 });
 
 reminderFeature.init(app);
+scheduleFeature.init(app);
 
 (async () => {
   await app.start();
