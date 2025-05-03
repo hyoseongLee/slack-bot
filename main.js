@@ -1,9 +1,8 @@
 require('dotenv').config();
 const { App } = require('@slack/bolt');
 
-const reminderFeature = require('./features/reminder');
 const scheduleFeature = require('./features/schedule');
-const algoBotFeature = require('./features/algoBot'); 
+const algoBotFeature = require('./features/algoBot');
 const {
   studyService,
   submitAnswerService,
@@ -17,11 +16,11 @@ const app = new App({
   port: process.env.PORT || 3000,
 });
 
-reminderFeature.init(app);
-scheduleFeature.init(app);
-
 // Algobot 알고리즘 문제 추천 기능
 algoBotFeature.init(app);
+
+// 일정관리 기능
+scheduleFeature.init(app);
 
 // 면접 예상 질문 및 답변 기능
 app.command("/study", studyService);
