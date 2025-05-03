@@ -14,24 +14,17 @@
     "isCompleted": true
   },
   {
-    "id": 1744936946475,
-    "text": "test!",
+    "id": 1745216108348,
+    "text": "호진테스트",
     "userId": "U08MYM03PFG",
-    "createdAt": "2025-04-18T00:42:26.475Z",
-    "isCompleted": true
-  },
-  {
-    "id": 1745216052649,
-    "text": "asdfk",
-    "userId": "U08MYM03PFG",
-    "createdAt": "2025-04-21T06:14:12.649Z",
+    "createdAt": "2025-04-21T06:15:08.348Z",
     "isCompleted": false
   },
   {
-    "id": 1745216636336,
-    "text": "asfda",
+    "id": 1745216540448,
+    "text": "ㅁㄴㅇㄹ",
     "userId": "U08MYM03PFG",
-    "createdAt": "2025-04-21T06:23:56.336Z",
-    "isCompleted": true
+    "createdAt": "2025-04-21T06:22:20.449Z",
+    "isCompleted": false
   }
 ]
