@@ -1,5 +1,6 @@
 const db = require('../../common/database');
 
+// 일정 생성
 async function createScedule(title, dueDate, userId, scheduleId) {
 
     const schedule = {
@@ -15,6 +16,7 @@ async function createScedule(title, dueDate, userId, scheduleId) {
       return `일정이 등록되었습니다.: "${title}"`;
 }
 
+//일정 완료 처리
 async function completeSchedule(scheduleId) {
   const schedules = db.readJson('schedules.json');
   const schedule = schedules.find(r => r.id === parseInt(scheduleId));
@@ -29,6 +31,7 @@ async function completeSchedule(scheduleId) {
   return `일정이 완료되었습니다: "${schedule.title}"`;
 }
 
+//일정 삭제
 async function deleteSchedule(scheduleId) {
   const schedules = db.readJson('schedules.json');
   const schedule = schedules.find(r => r.id === parseInt(scheduleId));
@@ -42,6 +45,7 @@ async function deleteSchedule(scheduleId) {
   return `일정이 삭제되었습니다: "${schedule.title}"`;
 }
 
+//일정 조회
 async function getSchedule(scheduleId) {
   const schedules = db.readJson('schedules.json');
   const schedule = schedules.find(r => r.id === parseInt(scheduleId));
@@ -54,6 +58,7 @@ async function getSchedule(scheduleId) {
   return schedule;
 }
 
+//일정 수정
 async function updateSchedule(scheduleId, title, dueDate) {
   const schedules = db.readJson('schedules.json');
   const schedule = schedules.find(r => r.id === parseInt(scheduleId));

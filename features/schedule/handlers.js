@@ -1,5 +1,6 @@
 const service = require('./service');
-const blocks = require('./blocks');
+const {buildEditScheduleModal, buildTodoBlocks} = require('./blocks');
+const { formatDate } = require('./format');
 
 function register(app) {
 
@@ -32,51 +33,10 @@ function register(app) {
       }
     
       
-      const modalView = blocks.buildEditScheduleModal(body.trigger_id, scheduleId, schedule);
+      const modalView = buildEditScheduleModal(body.trigger_id, scheduleId, schedule);
       // 모달은 여기서 client로 직접 띄움
       await client.views.open(modalView);
-      // await client.views.open({
-      //   trigger_id: body.trigger_id,
-      //   view: {
-      //     type: 'modal',
-      //     callback_id: 'edit_schedule_submit',
-      //     private_metadata: scheduleId,
-      //     title: {
-      //       type: 'plain_text',
-      //       text: '일정 수정'
-      //     },
-      //     submit: {
-      //       type: 'plain_text',
-      //       text: '수정하기'
-      //     },
-      //     close: {
-      //       type: 'plain_text',
-      //       text: '취소'
-      //     },
-      //     blocks: [
-      //       {
-      //         type: 'input',
-      //         block_id: 'title_block',
-      //         label: { type: 'plain_text', text: '제목' },
-      //         element: {
-      //           type: 'plain_text_input',
-      //           action_id: 'title_input',
-      //           initial_value: schedule.title
-      //         }
-      //       },
-      //       {
-      //         type: 'input',
-      //         block_id: 'date_block',
-      //         label: { type: 'plain_text', text: '마감일' },
-      //         element: {
-      //           type: 'plain_text_input',
-      //           action_id: 'date_input',
-      //           initial_value: schedule.dueDate
-      //         }
-      //       }
-      //     ]
-      //   }
-      // });
+
     });
 
 
@@ -85,7 +45,8 @@ function register(app) {
     
       const scheduleId = view.private_metadata; // 수정할 스케줄 ID
       const title = view.state.values.title_block.title_input.value;
-      const dueDate = view.state.values.date_block.date_input.value;
+      let dueDate = view.state.values.date_block.date_input.value;
+      dueDate = formatDate(dueDate); // "2025/4/2" → "2025/04/02"
     
       console.log(`📝 수정할 ID: ${scheduleId}`);
       console.log(`제목: ${title}, 마감일: ${dueDate}`);
@@ -98,7 +59,7 @@ function register(app) {
         channel: body.user.id,
         text: `✅ 일정이 수정되었습니다!`
       });
-      const blocks = service.buildTodoBlocks();
+      const blocks = buildTodoBlocks();
       
     });
   

@@ -1,18 +1,8 @@
 const service = require('./service');
 const {buildEditScheduleModal, buildTodoBlocks} = require('./blocks');
+const { formatDate, parseDate } = require('./format');
 
 
-function formatDate(input) {
-  // "2025/4/2" → [2025, 4, 2]
-  const parts = input.split('/');
-  if (parts.length !== 3) return null;
-
-  const [yyyy, m, d] = parts;
-  const mm = m.padStart(2, '0');  // "4" → "04"
-  const dd = d.padStart(2, '0');  // "2" → "02"
-
-  return `${yyyy}/${mm}/${dd}`;   // "2025/04/02"
-}
 
 function register(app) {
     
@@ -20,20 +10,13 @@ function register(app) {
     // /addschedule
     app.command('/addschedule', async ({ command, ack, say }) => {
       await ack();
-      // ... 일정 추가 로직
+      
           const scheduleId = Date.now(); // 고유 ID 생성
           
-          const text = command.text
+          const text = command.text // "일정 날짜"
 
-          const dateRegex = /\d{4}\/\d{1,2}\/\d{1,2}/;
-          const match = text.match(dateRegex);  
-
-          if (!match) {
-            return say("❗ 날짜 형식이 잘못됐어요. 예: 2025/04/02 or 2025/4/2");
-          }
-
-          let dueDate = match[0]; // "2025/4/2"
-          const title = text.replace(dueDate, '').trim();
+          let dueDate = parseDate(text) // "2025/4/2"
+          const title = text.replace(dueDate, '').trim(); //일정제목 추출
           dueDate = formatDate(dueDate); // "2025/4/2" → "2025/04/02"
 
           

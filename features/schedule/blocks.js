@@ -1,6 +1,6 @@
 const db = require('../../common/database');
 
-
+// 전체 일정 블록 생성
 function buildTodoBlocks() {
   const schedules = db.readJson('schedules.json');
   
@@ -69,7 +69,7 @@ function buildTodoBlocks() {
   return blocks;
 }
 
-
+// 일정 수정 모달 생성
 function buildEditScheduleModal(trigger_id, scheduleId, schedule) {
     return {
       trigger_id: trigger_id,
