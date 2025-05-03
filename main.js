@@ -1,7 +1,8 @@
-require("dotenv").config();
-const { App } = require("@slack/bolt");
+require('dotenv').config();
+const { App } = require('@slack/bolt');
 
-const algoBotFeature = require('./features/algoBot'); // 
+const scheduleFeature = require('./features/schedule');
+const algoBotFeature = require('./features/algoBot');
 const {
   studyService,
   submitAnswerService,
@@ -17,6 +18,9 @@ const app = new App({
 
 // Algobot 알고리즘 문제 추천 기능
 algoBotFeature.init(app);
+
+// 일정관리 기능
+scheduleFeature.init(app);
 
 // 면접 예상 질문 및 답변 기능
 app.command("/study", studyService);
