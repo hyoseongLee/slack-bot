@@ -1,6 +1,8 @@
 require('dotenv').config();
 const { App } = require('@slack/bolt');
 
+const randomLunch = require('./features/randomLunch')
+const vote = require('./features/vote')
 const weatherFeature = require('./features/weather');
 const scheduleFeature = require('./features/schedule');
 const algoBotFeature = require('./features/algoBot');
@@ -29,6 +31,12 @@ app.action("submit_answer_button", submitAnswerService);
 
 // 오늘 날씨 조회 기능
 weatherFeature.init(app);
+
+// 점심 메뉴 추천 기능
+randomLunch.init(app);
+
+// 투표 기능
+vote.init(app);
 
 (async () => {
   await app.start();
