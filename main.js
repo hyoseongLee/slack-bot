@@ -1,6 +1,8 @@
 require('dotenv').config();
 const { App } = require('@slack/bolt');
 const reminderFeature = require('./features/reminder');
+const randomLunch = require('./features/randomLunch')
+const vote = require('./features/vote')
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
@@ -11,6 +13,8 @@ const app = new App({
 });
 
 reminderFeature.init(app);
+randomLunch.init(app);
+vote.init(app);
 
 (async () => {
   await app.start();
