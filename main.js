@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { App } = require('@slack/bolt');
 
+const weatherFeature = require('./features/weather');
 const scheduleFeature = require('./features/schedule');
 const algoBotFeature = require('./features/algoBot');
 const {
@@ -25,6 +26,9 @@ scheduleFeature.init(app);
 // 면접 예상 질문 및 답변 기능
 app.command("/study", studyService);
 app.action("submit_answer_button", submitAnswerService);
+
+// 오늘 날씨 조회 기능
+weatherFeature.init(app);
 
 (async () => {
   await app.start();
