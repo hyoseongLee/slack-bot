@@ -1,8 +1,14 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "@google/generative-ai": "^0.24.0",
     "@slack/bolt": "^4.2.1",
     "axios": "^1.9.0",
+=======
+    "@slack/bolt": "^4.2.1",
+    "axios": "^1.8.4",
+    "cheerio": "^1.0.0",
+>>>>>>> upstream/main
     "dotenv": "^16.5.0",
     "openai": "^4.96.0"
   }

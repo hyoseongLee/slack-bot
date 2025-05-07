@@ -50,9 +50,25 @@ function updateItem(fileName, id, updatedItem) {
   writeJson(fileName, updatedData);
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * 데이터 삭제 함수 추가 (ID 기반)
+ */
+function deleteItem(fileName, id) {
+  const data = readJson(fileName);
+  const updatedData = data.filter(item => item.id !== id);
+  writeJson(fileName, updatedData);
+}
+
+>>>>>>> upstream/main
 module.exports = {
   readJson,
   writeJson,
   addItem,
   updateItem,
+<<<<<<< HEAD
+=======
+  deleteItem
+>>>>>>> upstream/main
 };
