@@ -1,4 +1,9 @@
+<<<<<<< HEAD
+.env
+node_modules
+=======
 node_modules/
 .env
 .idea
 .DS_Store
+>>>>>>> upstream/main
