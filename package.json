@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "@slack/bolt": "^4.2.1",
+    "axios": "^1.9.0",
+    "dotenv": "^16.5.0",
+    "openai": "^4.96.0"
+  }
+}
