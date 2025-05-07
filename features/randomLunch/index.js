@@ -1,3 +1,5 @@
+const service = require('./service');
+
 //점심 메뉴 추천 커맨드 구성
 function init(app) {
     app.command('/lunch',async ({command,ack,say})=> {
