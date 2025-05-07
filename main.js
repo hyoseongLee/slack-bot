@@ -10,12 +10,9 @@ const {
   studyService,
   submitAnswerService,
 } = require("./features/study/study-service.js");
-<<<<<<< HEAD
 const zodiacFeature = require('./features/zodiac');
 const todayFortuneFeature = require('./features/todayfortune');
 const constellationFeature = require('./features/constellation');
-=======
->>>>>>> upstream/main
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
@@ -44,7 +41,6 @@ randomLunch.init(app);
 // 투표 기능
 vote.init(app);
 
-<<<<<<< HEAD
 // 띠 운세 기능
 app.command('/zodiac', async ({ command, ack }) => {
   await zodiacFeature.command.handler({ body: command, ack });
@@ -64,9 +60,3 @@ app.command('/constellation', async ({ command, ack }) => {
   await app.start();
   console.log("⚡️ Slack 봇이 실행 중입니다!");
 })();
-=======
-(async () => {
-  await app.start();
-  console.log("⚡️ Slack 봇이 실행 중입니다!");
-})();
->>>>>>> upstream/main
