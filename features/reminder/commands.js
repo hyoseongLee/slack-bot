@@ -31,8 +31,4 @@ function register(app) {
   });
 }
 
-<<<<<<< HEAD
 module.exports = { register };
-=======
-module.exports = { register };
->>>>>>> upstream/main

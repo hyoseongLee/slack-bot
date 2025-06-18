@@ -7,7 +7,7 @@ const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 // 생년으로 띠 구하는 함수
 const getZodiacAnimal = (year) => {
   const animals = [
-    '원숭이', '닭', '개', '돼지', '쥐', '소',
+    '원숭이', '닭', '개', '돼지', '쥐', '소', 
     '호랑이', '토끼', '용', '뱀', '말', '양'
   ];
   return animals[year % 12];
